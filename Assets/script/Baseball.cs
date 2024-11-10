@@ -17,7 +17,7 @@ public class Baseball : MonoBehaviour
     [Header("Q&A")]
     public GameObject qAPanel;
     GameObject qA;
-    TMP_Text set;
+    public TMP_Text redScore;
     public GameObject skip;
     public Image Q;
     public Sprite[] imagesQ;
@@ -28,6 +28,7 @@ public class Baseball : MonoBehaviour
     public Sprite[] score;//RG
     public Image[] scorePanel;//RG
     static int Round = 0;
+    static int pulsRound = 0;
     int outPoint = 0;
     bool skiped = false;
     bool random = false;
@@ -37,6 +38,7 @@ public class Baseball : MonoBehaviour
     public AudioSource BGM;
     void Awake()
     {
+        pulsRound = 0;
         Round = 0;
         answer = 0;
         key = -1;
@@ -44,7 +46,7 @@ public class Baseball : MonoBehaviour
         // playOBJ[0].gameObject.SetActive(true);
         StartGame();
         qA = qAPanel.transform.GetChild(2).gameObject;
-        set = qAPanel.transform.GetChild(0).GetComponent<TMP_Text>();
+        //redScore = qAPanel.transform.GetChild(0).GetComponent<TMP_Text>();
         //Debug.Log(qA.name);
         Screen.SetResolution(3840, 2160, true);
     }
@@ -79,8 +81,9 @@ public class Baseball : MonoBehaviour
 
                 play[3].Play();
                 Round++;
-                scoreNumber++;
-                scorePanel[scoreNumber].sprite = score[1];
+                pulsRound++;
+                //scoreNumber++;
+                //scorePanel[scoreNumber].sprite = score[1];
                 //skip.SetActive(true);
 
                 //if (skiped)
@@ -90,6 +93,7 @@ public class Baseball : MonoBehaviour
                 //}
                 //if (!skiped)
                 //{
+                redScore.text = pulsRound.ToString();
 
                 Invoke("Picher", 17);
 
@@ -131,7 +135,7 @@ public class Baseball : MonoBehaviour
 
     void Chitkey()
     {
-        set.text = "X";
+       //redScore.text = "X";
         BGM.Pause();
         play[0].Stop();
         play[1].Stop();
@@ -162,8 +166,7 @@ public class Baseball : MonoBehaviour
 
     void Picher()
     {
-        int a = Round + 1;
-        set.text = a.ToString();
+       
 
         play[0].Stop();
         play[3].Stop();
@@ -201,7 +204,7 @@ public class Baseball : MonoBehaviour
             }
         }
 
-
+        
 
 
     }
